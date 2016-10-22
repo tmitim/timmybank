@@ -32,5 +32,7 @@ public class BasicApplication extends Application<BasicConfiguration> {
 
 		environment.jersey().register(basicResource);
 		environment.healthChecks().register("base", new BasicHealthCheck());
+
+		System.out.println("Running Server");
 	}
 }

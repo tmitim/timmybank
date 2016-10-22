@@ -1,4 +1,60 @@
+database:
+  # the name of your JDBC driver
+  driverClass: com.mysql.jdbc.Driver
+
+  # the username
+  user: admin
+
+  # the password
+  password: bunny1
+
+  # the JDBC URL
+  url: jdbc:mysql://localhost/timmybank_db?useSSL=false
+
+  # any properties specific to your JDBC driver:
+  properties:
+    charSet: UTF-8
+
+  # the maximum amount of time to wait on an empty pool before throwing an exception
+  maxWaitForConnection: 1s
+
+  # the SQL query to run when validating a connection's liveness
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+
+  # the minimum number of connections to keep open
+  minSize: 8
+
+  # the maximum number of connections to keep open
+  maxSize: 32
+
+  # whether or not idle connections should be validated
+  checkConnectionWhileIdle: false
+
+  # the amount of time to sleep between runs of the idle connection validation, abandoned cleaner and idle pool resizing
+  evictionInterval: 10s
+
+  # the minimum amount of time an connection must sit idle in the pool before it is eligible for eviction
+  minIdleTime: 1 minute
+
 server:
   applicationConnectors:
     - type: http
       port: 8080
+  requestLog:
+      appenders:
+          - type: file
+            currentLogFilename: ./logs/requests.log
+            archivedLogFilenamePattern: ./logs/requests-%d.log.gz
+            archivedFileCount: 30
+            timeZone: UTC
+      
+logging:
+  level: INFO
+
+  appenders:
+    - type: file
+      currentLogFilename: ./logs/tmsecret.log
+      archivedLogFilenamePattern: ./logs/tmsecret-%d.log.gz
+      archivedFileCount: 30
+      timeZone: UTC
+
