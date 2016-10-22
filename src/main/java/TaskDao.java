@@ -23,5 +23,5 @@ public interface TaskDao {
 			@Bind("completed") boolean completed);
 
 	@SqlUpdate("UPDATE tasks SET completed=:completed WHERE id=:id")
-	void editPost(@Bind("id") int id, @Bind("completed") boolean completed);
+	void setTaskCompletion(@Bind("id") int id, @Bind("completed") boolean completed);
 }
