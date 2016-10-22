@@ -23,6 +23,7 @@ dependencies {
 
     compile 'commons-validator:commons-validator:1.5.0'
     compile 'com.hubspot.dropwizard:dropwizard-guice:0.8.4.0'
+    compile 'mysql:mysql-connector-java:5.1.38'
 }
 
 shadowJar {

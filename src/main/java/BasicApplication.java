@@ -30,8 +30,6 @@ public class BasicApplication extends Application<BasicConfiguration> {
 
 	@Override
 	public void run(BasicConfiguration configuration, Environment environment) {
-
-
 		final DBIFactory factory = new DBIFactory();
 		final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
 

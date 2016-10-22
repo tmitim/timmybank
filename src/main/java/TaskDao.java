@@ -5,10 +5,7 @@ import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
-import org.skife.jdbi.v2.sqlobject.stringtemplate.UseStringTemplate3StatementLocator;
 
-
-@UseStringTemplate3StatementLocator
 @RegisterMapper(TaskMapper.class)
 public interface TaskDao {
 	@SqlQuery("SELECT * FROM tasks WHERE id =:id")
