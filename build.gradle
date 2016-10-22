@@ -1,0 +1,38 @@
+// Apply the appropriate plugin to add support for a Java web application server
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+// In this section, we declare where to find the dependencies of the project
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+project.ext {
+    dropwizardVersion = '0.9.3'
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    // DropWizard
+    compile 'io.dropwizard:dropwizard-core:' + dropwizardVersion
+    compile 'io.dropwizard:dropwizard-jdbi:' + dropwizardVersion
+    compile 'io.dropwizard:dropwizard-testing:' + dropwizardVersion
+
+    compile 'commons-validator:commons-validator:1.5.0'
+    compile 'com.hubspot.dropwizard:dropwizard-guice:0.8.4.0'
+}
+
+shadowJar {
+    mergeServiceFiles()
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'BasicApplication'
+    }
+}
