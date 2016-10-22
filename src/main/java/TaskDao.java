@@ -21,4 +21,7 @@ public interface TaskDao {
 
 	@SqlUpdate("UPDATE tasks SET completed=:completed WHERE id=:id")
 	void setTaskCompletion(@Bind("id") int id, @Bind("completed") boolean completed);
+
+	@SqlQuery("SELECT * FROM tasks WHERE accountableId =:accountableId")
+	List<Task> getAccountableTasks(int accountableId);
 }
