@@ -136,6 +136,7 @@ nav.main a:hover {
 }
 .form input {
 	box-sizing: border-box;
+	border: 1px solid #ccc;
 	width: 100%;
 	font-size: 16px;
 	line-height: 2em;

@@ -1,4 +1,4 @@
-<article ng-repeat="task in $ctrl.tasks" class="friend-task">
+<article ng-repeat="task in $ctrl.tasks | orderBy: '-'" class="friend-task">
 	<img class="small" src="https://avatars3.githubusercontent.com/u/5560128?v=3&s=466" ng-if="task.accountableId === 1">
 	<img class="small" src="https://avatars3.githubusercontent.com/u/5944248?v=3&s=466" ng-if="task.accountableId === 2">
 	<img class="small" src="https://avatars1.githubusercontent.com/u/2566047?v=3&s=466" ng-if="task.accountableId === 3">

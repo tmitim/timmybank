@@ -95,7 +95,7 @@
 
 	app.component('createTask', {
 		templateUrl: '/src/main/components/create-task.html',
-		controller: ['$http', 'tabNumber', '$routeParams', function($http, tabNumber, $routeParams){
+		controller: ['$http', 'tabNumber', '$routeParams', '$location', function($http, tabNumber, $routeParams, $location){
 			var vm = this;
 
 			tabNumber.id = 3;
@@ -103,6 +103,7 @@
 			vm.createTask = createTask;
 			vm.message = '';
 			vm.accountableId = '';
+			vm.amount = '';
 
 			var postObj = {
 				userId: vm.userId,
@@ -115,7 +116,9 @@
 			function createTask() {
 				postObj.message = vm.message;
 				postObj.accountableId = vm.accountableId;
-				//postObj.amount = vm.amount;
+				postObj.amount = parseInt(vm.amount);
+
+				console.log(postObj);
 
 				$http({
 					method: 'POST',
@@ -123,7 +126,9 @@
 					data: JSON.stringify(postObj),
 					headers: {
 						'Content-Type': 'application/json'
-				}});
+				}}).then(function(){
+					$location.path( '/tasks/' + postObj.userId );
+				});
 			}
 		}]
 	})
