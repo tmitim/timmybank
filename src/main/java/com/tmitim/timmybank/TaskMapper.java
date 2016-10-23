@@ -15,6 +15,7 @@ public class TaskMapper implements ResultSetMapper<Task> {
 		task.setMessage(r.getString("message"));
 		task.setAccountableId(r.getInt("accountableId"));
 		task.setCompleted(r.getBoolean("completed"));
+		task.setAmount(r.getInt("amount"));
 
 		return task;
 	}

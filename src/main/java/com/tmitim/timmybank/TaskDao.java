@@ -15,10 +15,10 @@ public interface TaskDao {
 	@SqlQuery("SELECT * FROM tasks WHERE userId=:userId")
 	List<Task> getUserTasks(@Bind("userId") int userId);
 
-	@SqlUpdate("INSERT INTO tasks (userId, accountableId, message, completed) VALUES (:userId, :accountableId, :message, :completed)")
+	@SqlUpdate("INSERT INTO tasks (userId, accountableId, message, completed, amount) VALUES (:userId, :accountableId, :message, :completed, :amount)")
 	@GetGeneratedKeys
 	int insert(@Bind("userId") int userId, @Bind("accountableId") int accountableId, @Bind("message") String message,
-			@Bind("completed") boolean completed);
+			@Bind("completed") boolean completed, @Bind("amount") int amount);
 
 	@SqlUpdate("UPDATE tasks SET completed=:completed WHERE id=:id")
 	void setTaskCompletion(@Bind("id") int id, @Bind("completed") boolean completed);

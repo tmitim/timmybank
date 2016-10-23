@@ -60,7 +60,7 @@ public class BasicResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createTask(@Valid Task task) {
-		int id = taskDao.insert(task.getUserId(), task.getAccountableId(), task.getMessage(), false);
+		int id = taskDao.insert(task.getUserId(), task.getAccountableId(), task.getMessage(), false, task.getAmount());
 
 		Task task2 = taskDao.getTask(id);
 		return Response.ok(task2).build();
@@ -92,7 +92,7 @@ public class BasicResource {
 	}
 
 	private String getJwt() {
-		final String secret = "";
+		final String secret = "jWGZ7BhN0l3uLBkmE/M91UsSylqQprp8hACrqgUsEEDR20GBmaVPQd30q2lx3Mmyvmiyi1c8aFIpQMOMbFIWmw==";
 
 		final long iat = System.currentTimeMillis() / 1000L; // issued at claim
 		final long exp = iat + 60L; // expires claim. In this case the token

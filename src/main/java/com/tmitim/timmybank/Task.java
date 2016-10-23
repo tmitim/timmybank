@@ -6,6 +6,7 @@ public class Task {
 	private int accountableId;
 	private String message;
 	private boolean completed;
+	private int amount;
 
 	public int getId() {
 		return id;
@@ -47,4 +48,11 @@ public class Task {
 		this.completed = completed;
 	}
 
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
 }
