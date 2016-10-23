@@ -103,6 +103,7 @@
 			vm.createTask = createTask;
 			vm.message = '';
 			vm.accountableId = '';
+			vm.amount = '';
 
 			var postObj = {
 				userId: vm.userId,
@@ -115,7 +116,9 @@
 			function createTask() {
 				postObj.message = vm.message;
 				postObj.accountableId = vm.accountableId;
-				//postObj.amount = vm.amount;
+				postObj.amount = parseInt(vm.amount);
+
+				console.log(postObj);
 
 				$http({
 					method: 'POST',
