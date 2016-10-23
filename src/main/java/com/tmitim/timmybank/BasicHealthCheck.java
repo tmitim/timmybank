@@ -1,3 +1,4 @@
+package com.tmitim.timmybank;
 import com.codahale.metrics.health.HealthCheck;
 
 public class BasicHealthCheck extends HealthCheck {

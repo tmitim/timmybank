@@ -20,10 +20,15 @@ dependencies {
     compile 'io.dropwizard:dropwizard-core:' + dropwizardVersion
     compile 'io.dropwizard:dropwizard-jdbi:' + dropwizardVersion
     compile 'io.dropwizard:dropwizard-testing:' + dropwizardVersion
+    compile 'io.dropwizard:dropwizard-auth:' + dropwizardVersion
 
-    compile 'commons-validator:commons-validator:1.5.0'
-    compile 'com.hubspot.dropwizard:dropwizard-guice:0.8.4.0'
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
     compile 'mysql:mysql-connector-java:5.1.38'
+    compile 'commons-validator:commons-validator:1.5.0'
+    compile group: 'org.antlr', name: 'stringtemplate', version: '3.2.1'
+    compile group: 'com.github.toastshaman', name: 'dropwizard-auth-jwt', version: '1.0.0-0'
+    
+    testCompile 'com.github.stefanbirkner:system-rules:1.16.0'
 }
 
 shadowJar {
@@ -34,6 +39,6 @@ shadowJar {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'BasicApplication'
+        attributes 'Main-Class': 'com.tmitim.timmybank.BasicApplication'
     }
 }

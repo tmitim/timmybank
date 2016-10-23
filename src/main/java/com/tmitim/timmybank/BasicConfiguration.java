@@ -1,3 +1,4 @@
+package com.tmitim.timmybank;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 

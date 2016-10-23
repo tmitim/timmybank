@@ -1,3 +1,4 @@
+package com.tmitim.timmybank;
 import java.util.List;
 
 import org.skife.jdbi.v2.sqlobject.Bind;
@@ -8,10 +9,10 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
 @RegisterMapper(TaskMapper.class)
 public interface TaskDao {
-	@SqlQuery("SELECT * FROM tasks WHERE id =:id")
+	@SqlQuery("SELECT * FROM tasks WHERE id=:id")
 	Task getTask(@Bind("id") int id);
 
-	@SqlQuery("SELECT * FROM tasks WHERE userId =:userId")
+	@SqlQuery("SELECT * FROM tasks WHERE userId=:userId")
 	List<Task> getUserTasks(@Bind("userId") int userId);
 
 	@SqlUpdate("INSERT INTO tasks (userId, accountableId, message, completed) VALUES (:userId, :accountableId, :message, :completed)")
@@ -23,5 +24,5 @@ public interface TaskDao {
 	void setTaskCompletion(@Bind("id") int id, @Bind("completed") boolean completed);
 
 	@SqlQuery("SELECT * FROM tasks WHERE accountableId =:accountableId")
-	List<Task> getAccountableTasks(int accountableId);
+	List<Task> getAccountableTasks(@Bind("accountableId") int accountableId);
 }

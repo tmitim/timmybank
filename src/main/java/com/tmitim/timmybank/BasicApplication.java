@@ -1,3 +1,5 @@
+package com.tmitim.timmybank;
+
 import org.skife.jdbi.v2.DBI;
 
 import io.dropwizard.Application;
