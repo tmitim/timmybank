@@ -6,7 +6,7 @@ database:
   user: admin
 
   # the password
-  password: bunny1
+  password: b
 
   # the JDBC URL
   url: jdbc:mysql://localhost/timmybank_db?useSSL=false
@@ -39,7 +39,7 @@ database:
 server:
   applicationConnectors:
     - type: http
-      port: 8080
+      port: 8090
   requestLog:
       appenders:
           - type: file

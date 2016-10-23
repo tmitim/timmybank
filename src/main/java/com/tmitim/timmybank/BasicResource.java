@@ -1,6 +1,8 @@
 package com.tmitim.timmybank;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -22,11 +24,13 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import com.auth0.jwt.JWTSigner;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Path("/api/")
 public class BasicResource {
 
-	private String URL_BASE = "https://hack.modoapi.com/1.0.0-dev/";
+	private String URL_BASE = "https://hack.modoapi.com/1.0.0-dev";
 
 	private TaskDao taskDao;
 
@@ -41,8 +45,16 @@ public class BasicResource {
 		Map<String, String> map = new HashMap<>();
 		map.put("hello", "world");
 
-		post("https://hack.modoapi.com/1.0.0-dev/vault/get_type_list");
-		return Response.ok(map).build();
+		String test = post("/vault/get_type_list");
+		return Response.ok(test).build();
+	}
+
+	public class Vault {
+		String item_ids;
+
+		public String getItem_ids() {
+			return item_ids;
+		}
 	}
 
 	@PUT
@@ -62,8 +74,17 @@ public class BasicResource {
 	public Response createTask(@Valid Task task) {
 		int id = taskDao.insert(task.getUserId(), task.getAccountableId(), task.getMessage(), false, task.getAmount());
 
+		Coin coin = new Coin();
+		coin.amount = task.getAmount();
+		String test = post("/coin/mint", coin.toString());
+
+		System.out.println(test);
 		Task task2 = taskDao.getTask(id);
 		return Response.ok(task2).build();
+	}
+
+	public class Coin {
+		int amount;
 	}
 
 	@GET
@@ -71,7 +92,7 @@ public class BasicResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTask(@PathParam("taskId") int taskId) {
 
-		System.out.println(taskId);
+
 		Task task = taskDao.getTask(taskId);
 		return Response.ok(task).build();
 
@@ -80,7 +101,21 @@ public class BasicResource {
 	@GET
 	@Path("/task/user/{userId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUserTasks(@PathParam("userId") int userId) {
+	public Response getUserTasks(@PathParam("userId") int userId) throws JsonProcessingException {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> map = new HashMap<>();
+		List<String> list = new ArrayList<>();
+		list.add("aaaea9d1-5139-4c50-af70-cf0f8c6ab140");
+		map.put("item_ids", list);
+
+		String json = mapper.writeValueAsString(map);
+
+		String test = post("/vault/get_balance", json);
+
+		System.out.println(test);
+
 		return Response.ok(taskDao.getUserTasks(userId)).build();
 	}
 
@@ -92,7 +127,8 @@ public class BasicResource {
 	}
 
 	private String getJwt() {
-		final String secret = "jWGZ7BhN0l3uLBkmE/M91UsSylqQprp8hACrqgUsEEDR20GBmaVPQd30q2lx3Mmyvmiyi1c8aFIpQMOMbFIWmw==";
+		final String secret = "jWGZ7BhN0l3uLBkmE" + "/M91UsSylqQprp8hACrqgUsEEDR20GB"
+				+ "maVPQd30q2lx3Mmyvmiyi1c8aFIpQMOMbFIWmw==";
 
 		final long iat = System.currentTimeMillis() / 1000L; // issued at claim
 		final long exp = iat + 60L; // expires claim. In this case the token
@@ -115,11 +151,10 @@ public class BasicResource {
 
 		String json = "";
 		try {
-			HttpPost request = new HttpPost(url);
+			HttpPost request = new HttpPost(URL_BASE + url);
 
 			request.addHeader("Authorization", "Token " + getJwt());
 
-			System.out.println(getJwt());
 			HttpResponse response = httpClient.execute(request);
 
 			json = EntityUtils.toString(response.getEntity());
@@ -133,17 +168,15 @@ public class BasicResource {
 
 	private String post(String url, String jsonBody) {
 
-		HttpClient httpClient = HttpClientBuilder.create().build(); // Use this
-																	// instead
+		HttpClient httpClient = HttpClientBuilder.create().build();
 
 		String json = "";
 		try {
-			HttpPost request = new HttpPost(url);
+			HttpPost request = new HttpPost(URL_BASE + url);
 
 			request.addHeader("Authorization", "Token " + getJwt());
 			StringEntity params = new StringEntity(jsonBody);
-			// request.addHeader("content-type",
-			// "application/x-www-form-urlencoded");
+			request.addHeader("content-type", "application/json");
 			request.setEntity(params);
 			HttpResponse response = httpClient.execute(request);
 
