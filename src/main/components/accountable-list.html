@@ -1,0 +1,22 @@
+<article ng-repeat="task in $ctrl.accountableTasks" class="friend-task">
+	<img class="small" src="https://avatars3.githubusercontent.com/u/5560128?v=3&s=466" ng-if="task.accountableId === 1">
+	<img class="small" src="https://avatars3.githubusercontent.com/u/5944248?v=3&s=466" ng-if="task.accountableId === 2">
+	<img class="small" src="https://avatars1.githubusercontent.com/u/2566047?v=3&s=466" ng-if="task.accountableId === 3">
+
+	<img src="https://avatars3.githubusercontent.com/u/5560128?v=3&s=466" ng-if="task.userId === 1">
+	<img src="https://avatars3.githubusercontent.com/u/5944248?v=3&s=466" ng-if="task.userId === 2">
+	<img src="https://avatars1.githubusercontent.com/u/2566047?v=3&s=466" ng-if="task.userId === 3">
+	<div class="info">
+		<h3 ng-if="task.userId === 1">Timothy</h3>
+		<h3 ng-if="task.userId === 2">Michelle</h3>
+		<h3 ng-if="task.userId === 3">Eric</h3>
+		<p>{{task.message}}</p>
+		<p>Amount: ${{task.amount}}</p>
+	</div>
+	<div class="button" ng-click="$ctrl.updateTaskStatus(task.id)" ng-if="task.completed === false" id="task_{{task.id}}">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 792 612" ><g><path d="M403.2,65.2c-116.9,0-212,95.1-212,212c0,56.6,22,109.9,62.1,149.9s93.3,62.1,149.9,62.1c56.6,0,109.9-22,149.9-62.1   s62.1-93.3,62.1-149.9C615.2,160.3,520.1,65.2,403.2,65.2z M403.2,471.2c-107,0-194-87-194-194c0-107,87-194,194-194   s194,87,194,194C597.2,384.2,510.1,471.2,403.2,471.2z"></path></g><g><g><polygon points="367,382.1 278.1,290.5 292.5,276.5 366.8,353.1 521.2,188.8 535.8,202.5   "></polygon></g></g></svg>
+	</div>
+	<div class="done button" ng-click="$ctrl.updateTaskStatus(task.id)" ng-if="task.completed === true">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 40"><path d="M28.245,4.86C20.391,9.676,14.691,15.751,12.131,18.8L5.86,13.887L3.09,16.12l10.836,11.02  c1.865-4.777,7.771-14.113,14.983-20.746L28.245,4.86z"/></svg>
+	</div>
+</article>

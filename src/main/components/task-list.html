@@ -1,0 +1,24 @@
+<article ng-repeat="task in $ctrl.tasks" class="friend-task">
+	<img class="small" src="https://avatars3.githubusercontent.com/u/5560128?v=3&s=466" ng-if="task.accountableId === 1">
+	<img class="small" src="https://avatars3.githubusercontent.com/u/5944248?v=3&s=466" ng-if="task.accountableId === 2">
+	<img class="small" src="https://avatars1.githubusercontent.com/u/2566047?v=3&s=466" ng-if="task.accountableId === 3">
+
+	<img src="https://avatars3.githubusercontent.com/u/5560128?v=3&s=466" ng-if="task.userId === 1">
+	<img src="https://avatars3.githubusercontent.com/u/5944248?v=3&s=466" ng-if="task.userId === 2">
+	<img src="https://avatars1.githubusercontent.com/u/2566047?v=3&s=466" ng-if="task.userId === 3">
+
+	<div class="info">
+		<h3>{{task.message}}</h3>
+		<p ng-if="task.accountableId === 1">Friend: Timothy</p>
+		<p ng-if="task.accountableId === 2">Friend: Michelle</p>
+		<p ng-if="task.accountableId === 3">Friend: Eric</p>
+		<p>Amount: ${{task.amount}} </p>
+	</div>
+
+	<div ng-if="task.completed === false" class="status">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125"><circle cx="50" cy="20" r="8"/><circle cx="50" cy="80" r="4"/><circle cx="20" cy="50" r="6"/><circle cx="80" cy="50" r="2"/><ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 0.5025 58.7868)" cx="71.2" cy="28.8" rx="1" ry="1"/><ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -41.9239 41.2132)" cx="28.8" cy="71.2" rx="5" ry="5"/><ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -11.9239 28.7868)" cx="28.8" cy="28.8" rx="7" ry="7"/><ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -29.4975 71.2132)" cx="71.2" cy="71.2" rx="3" ry="3"/></svg>
+	</div>
+	<div ng-if="task.completed === true" class="status">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 40"><path d="M28.245,4.86C20.391,9.676,14.691,15.751,12.131,18.8L5.86,13.887L3.09,16.12l10.836,11.02  c1.865-4.777,7.771-14.113,14.983-20.746L28.245,4.86z"/></svg>
+	</div>
+</article>

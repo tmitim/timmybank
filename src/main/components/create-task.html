@@ -1,0 +1,9 @@
+<div class="form">
+	<label>Task</label>
+	<textarea ng-model="$ctrl.message"></textarea>
+	<label>Amount</label>
+	<input type="text" ng-model="$ctrl.amount">
+	<label>Who will keep me accountable?</label>
+	<input type="text" ng-model="$ctrl.accountableId">
+	<a ng-click="$ctrl.createTask()" class="create-button">Let's do it!</a>
+</div>
