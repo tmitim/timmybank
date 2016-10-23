@@ -95,7 +95,7 @@
 
 	app.component('createTask', {
 		templateUrl: '/src/main/components/create-task.html',
-		controller: ['$http', 'tabNumber', '$routeParams', function($http, tabNumber, $routeParams){
+		controller: ['$http', 'tabNumber', '$routeParams', '$location', function($http, tabNumber, $routeParams, $location){
 			var vm = this;
 
 			tabNumber.id = 3;
@@ -123,7 +123,9 @@
 					data: JSON.stringify(postObj),
 					headers: {
 						'Content-Type': 'application/json'
-				}});
+				}}).then(function(){
+					$location.path( '/tasks/' + postObj.userId );
+				});
 			}
 		}]
 	})
