@@ -49,6 +49,20 @@ public class BasicResource {
 		return Response.ok(test).build();
 	}
 
+	@GET
+	@Path("/test2/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getBase2() {
+		Map<String, String> map = new HashMap<>();
+		map.put("hello", "world");
+
+		Coin coin = new Coin();
+		coin.amount = 10;
+		String test = post("/coin/mint", coin.toString());
+
+		return Response.ok(test).build();
+	}
+
 	public class Vault {
 		String item_ids;
 
@@ -74,11 +88,6 @@ public class BasicResource {
 	public Response createTask(@Valid Task task) {
 		int id = taskDao.insert(task.getUserId(), task.getAccountableId(), task.getMessage(), false, task.getAmount());
 
-		Coin coin = new Coin();
-		coin.amount = task.getAmount();
-		String test = post("/coin/mint", coin.toString());
-
-		System.out.println(test);
 		Task task2 = taskDao.getTask(id);
 		return Response.ok(task2).build();
 	}
