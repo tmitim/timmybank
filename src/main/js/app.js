@@ -47,87 +47,119 @@
 
 	app.component('navBar', {
 		templateUrl: '/src/main/components/nav-bar.html',
-		controller: ['tabNumber', '$routeParams', function(tabNumber, $routeParams){
+		controller: ['tabNumber', 'userService', function(tabNumber, userService){
 			var vm = this;
 			vm.selectedTab = tabNumber;
-			vm.userId = $routeParams.userId;
+			vm.user = userService;
 		}]
 	})
 
 	app.component('taskList', {
 		templateUrl: '/src/main/components/task-list.html',
-		controller: ['$http', 'tabNumber', '$routeParams', function($http, tabNumber, $routeParams){
-			var vm = this;
-			tabNumber.id = 1;
-			vm.userId = $routeParams.userId;
+		controller: [
+			'$http', 
+			'tabNumber', 
+			'userService', 
+			'$routeParams', 
+			function(
+				$http, 
+				tabNumber, 
+				userService, 
+				$routeParams
+			){
+				var vm = this;
+				tabNumber.id = 1;
+				userService.id = $routeParams.userId;
 
-			$http.get(localHost + '/api/task/user/' + vm.userId)
-				.then(function(response) {
-					vm.tasks = response.data;
-				});
-		}]
+				$http.get(localHost + '/api/task/user/' + userService.id)
+					.then(function(response) {
+						vm.tasks = response.data;
+					});
+			}]
 	});
 
 	app.component('accountableList', {
 		templateUrl: '/src/main/components/accountable-list.html',
-		controller: ['$http', 'tabNumber', '$routeParams', function($http, tabNumber, $routeParams){
-			var vm = this;
-			vm.userId = $routeParams.userId;
+		controller: [
+			'$http', 
+			'tabNumber', 
+			'userService', 
+			'$routeParams', 
+			function(
+				$http, 
+				tabNumber, 
+				userService, 
+				$routeParams
+			){
+				var vm = this;
+				userService.id = $routeParams.userId;
 
-			vm.updateTaskStatus = updateTaskStatus;
+				vm.updateTaskStatus = updateTaskStatus;
 
-			tabNumber.id = 2;
+				tabNumber.id = 2;
 
-			function updateTaskStatus(id) {
-				$http.put(localHost + '/api/task/' + id)
-					.then(function(){
-						document.getElementById('task_' + id).innerHTML = '<svg class="done" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 40"><path d="M28.245,4.86C20.391,9.676,14.691,15.751,12.131,18.8L5.86,13.887L3.09,16.12l10.836,11.02  c1.865-4.777,7.771-14.113,14.983-20.746L28.245,4.86z"/></svg>';
-					})
-			}
+				function updateTaskStatus(id) {
+					$http.put(localHost + '/api/task/' + id)
+						.then(function(){
+							document.getElementById('task_' + id).innerHTML = '<svg class="done" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 40"><path d="M28.245,4.86C20.391,9.676,14.691,15.751,12.131,18.8L5.86,13.887L3.09,16.12l10.836,11.02  c1.865-4.777,7.771-14.113,14.983-20.746L28.245,4.86z"/></svg>';
+						})
+				}
 
-			$http.get(localHost + '/api/task/partner/' + vm.userId)
-				.then(function(response) {
-					vm.accountableTasks = response.data;
-				});
-		}]
+				$http.get(localHost + '/api/task/partner/' + userService.id)
+					.then(function(response) {
+						vm.accountableTasks = response.data;
+					});
+			}]
 	});
 
 	app.component('createTask', {
 		templateUrl: '/src/main/components/create-task.html',
-		controller: ['$http', 'tabNumber', '$routeParams', '$location', function($http, tabNumber, $routeParams, $location){
-			var vm = this;
+		controller: [
+			'$http', 
+			'tabNumber', 
+			'$routeParams', 
+			'userService', 
+			'$location', 
+			function(
+				$http, 
+				tabNumber, 
+				$routeParams, 
+				userService, 
+				$location
+			){
+				var vm = this;
 
-			tabNumber.id = 3;
-			vm.userId = $routeParams.userId;
-			vm.createTask = createTask;
-			vm.message = '';
-			vm.accountableId = '';
-			vm.amount = '';
+				tabNumber.id = 3;
+				userService.id = $routeParams.userId;
+				vm.createTask = createTask;
+				vm.message = '';
+				vm.accountableId = '';
+				vm.amount = '';
 
-			var postObj = {
-				userId: vm.userId,
-				accountableId: vm.accountableId,
-				completed: false,
-				message: vm.message,
-				amount: vm.amount
-			}
+				var postObj = {
+					userId: userService.id,
+					accountableId: vm.accountableId,
+					completed: false,
+					message: vm.message,
+					amount: vm.amount
+				}
 
-			function createTask() {
-				postObj.message = vm.message;
-				postObj.accountableId = vm.accountableId;
-				postObj.amount = parseInt(vm.amount);
+				function createTask() {
+					postObj.message = vm.message;
+					postObj.accountableId = vm.accountableId;
+					postObj.amount = parseInt(vm.amount);
 
-				$http({
-					method: 'POST',
-					url: localHost + '/api/task',
-					data: JSON.stringify(postObj),
-					headers: {
-						'Content-Type': 'application/json'
-				}}).then(function(){
-					$location.path( '/tasks/' + postObj.userId );
-				});
-			}
-		}]
+					$http({
+						method: 'POST',
+						url: localHost + '/api/task',
+						data: JSON.stringify(postObj),
+						headers: {
+							'Content-Type': 'application/json'
+					}}).then(function(){
+						$location.path( '/tasks/' + postObj.userId );
+					});
+				}
+			}]
 	})
 
 })(angular);

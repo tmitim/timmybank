@@ -1,11 +1,11 @@
 <nav class="main">
-	<a ng-href="/#/tasks/{{$ctrl.userId}}" 
+	<a ng-href="/#/tasks/{{$ctrl.user.id}}" 
 		ng-class="{selected: $ctrl.selectedTab.id === 1}"
 		>tasks</a>
-	<a ng-href="/#/accountable/{{$ctrl.userId}}" 
+	<a ng-href="/#/accountable/{{$ctrl.user.id}}" 
 		ng-class="{selected: $ctrl.selectedTab.id === 2}"
 		>accountable list</a>
-	<a ng-href="/#/task/{{$ctrl.userId}}" 
+	<a ng-href="/#/task/{{$ctrl.user.id}}" 
 		ng-class="{selected: $ctrl.selectedTab.id === 3}"
 		>new task</a>
 </nav>
