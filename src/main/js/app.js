@@ -47,9 +47,9 @@
 
 	app.component('navBar', {
 		templateUrl: '/src/main/components/nav-bar.html',
-		controller: ['$http', 'tabNumber', '$routeParams', function($http, tabNumber, $routeParams){
+		controller: ['tabNumber', '$routeParams', function(tabNumber, $routeParams){
 			var vm = this;
-			vm.selectedTab = tabNumber.id;
+			vm.selectedTab = tabNumber;
 			vm.userId = $routeParams.userId;
 		}]
 	})
@@ -88,7 +88,6 @@
 			$http.get(localHost + '/api/task/partner/' + vm.userId)
 				.then(function(response) {
 					vm.accountableTasks = response.data;
-					console.log(response.data);
 				});
 		}]
 	});
@@ -117,8 +116,6 @@
 				postObj.message = vm.message;
 				postObj.accountableId = vm.accountableId;
 				postObj.amount = parseInt(vm.amount);
-
-				console.log(postObj);
 
 				$http({
 					method: 'POST',
