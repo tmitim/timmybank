@@ -1,9 +1,4 @@
-# Dropwizard - Gradle - Shadowjar
-
-
-I realized I was wasting a lot of time starting projects using Dropwizard.... Never again.
-
-This repo is a nice starting-point basic implementation of dropwizard using gradle and shadowJar.
+# TimmyBank
 
 
 ## build...
@@ -11,16 +6,30 @@ This repo is a nice starting-point basic implementation of dropwizard using grad
 gradle clean build shadowJar
 ```
 
-## run... 
+## setup...
+```
+.. needs mysql setup
+```
+
+## run...
 ```
 java -jar build/libs/dropwizard-base-project-all.jar server configuration.yml
+```
+
+## display...
+```
+use http-server in the root folder to run front-end
 ```
 
 ## visit...
 
 ```
-localhost:8080/api/v1/test/       (test)   
-localhost:8081/                   (healthcheck)
+localhost:8090/api/v1/test/       (test)
+localhost:8091/                   (healthcheck)
 ```
 
-*glhf*
+## hackathon.io link
+[http://www.hackathon.io/timmybank](http://www.hackathon.io/timmybank)
+
+## Thanks
+@michelleclim // angular awesomeness
