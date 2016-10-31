@@ -132,22 +132,15 @@
 				tabNumber.id = 3;
 				userService.id = $routeParams.userId;
 				vm.createTask = createTask;
-				vm.message = '';
-				vm.accountableId = '';
-				vm.amount = '';
-
-				var postObj = {
-					userId: userService.id,
-					accountableId: vm.accountableId,
-					completed: false,
-					message: vm.message,
-					amount: vm.amount
-				}
 
 				function createTask() {
-					postObj.message = vm.message;
-					postObj.accountableId = vm.accountableId;
-					postObj.amount = parseInt(vm.amount);
+					var postObj = {
+						userId: userService.id,
+						accountableId: vm.accountableId,
+						completed: false,
+						message: vm.message,
+						amount: parseInt(vm.amount)
+					}
 
 					$http({
 						method: 'POST',
